@@ -18,7 +18,7 @@ div.esri-component.esri-layer-list.esri-widget.esri-widget––panel{
 }
 
 .esri-basemap-galley{
-    display:none;
     position:absolute;
     top:40px;
+    display:none
 }

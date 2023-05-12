@@ -7,8 +7,9 @@ requestAnimationFrame([
     "esri/widgets/Home",
     "esri/widgets/LayerList",
     "esri/widgets/BasemapToggle",
-    "esri-widgets/BasemapGallery"
-], (esriconfig, WebMap, MapView, ScaleBar, Legend, Home, LayerList, BasemapToggle, BasemapGallery)=>{
+    "esri-widgets/BasemapGallery",
+    "esri/widgets/Search"
+], (esriconfig, WebMap, MapView, ScaleBar, Legend, Home, LayerList, BasemapToggle, BasemapGallery, Search)=>{
     esriconfig.apikey="AAPK8b13c968054241359f234e78c7b004eefkKbVO9Hk6bBGOoBlPNrS5lFTXkOoZcQ4fo5j0eYOrMTRD_k5EhLbkVobAnOfCv0";
 
     const webMap=new WebMap({
@@ -72,14 +73,35 @@ requestAnimationFrame([
     document
     .getElementById("LayerList-btn")
     .addEventListener("click", function() {
-        toggleButton()
+        toggleButton("LayerList")
     })
 
-    function toggleButton(){
-        const LayerListEl=document.getElementsByClassName("esri-layer-list")[0];
-        let currentProp=LayerListEl.style.getPropertyValue("display");
+    document
+    .getElementById("basemap-btn")
+    .getEventListener("click", function(){
+        toggleButton("gallery");
+    })
 
-        LayerListEl.style.setProperty("display", currentProp=="block"? "none":"block");
+    const searchWidget=new Search({
+        view:view
+    })
+
+    view.ui.add(searchWidget, "top-left");
+
+    function toggleButton(item){
+        const LayerListEl=document.getElementsByClassName("esri-layer-list")[0];
+        let currentProp;
+        const galleryEl=document.getElementsByClassName("esri-basemap-galley")[0];
+
+        if(item=="LayerList"){
+           currentProp=LayerListEl.style.getPropertyValue("display");
+           LayerListEl.style.setProperty("display", currentProp=="block"? "none":"block");
+           galleryEl.style.setProperty("display", "none");
+     } else if(item=="gallery"){
+        currentProp=galleryEl.style.getPropertyValue("display");
+        galleryEl.style.setProperty("display", currentProp=="block"? "none":"block");
+        LayerListEl.style.setProperty("display", "none");
+      }
     }
 
 })
