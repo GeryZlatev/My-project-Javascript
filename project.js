@@ -23,7 +23,7 @@ requestAnimationFrame([
 
     })
     const homeBtn=new Home({
-        view:view;
+        view:view
     })
 
     view.ui.add(homeBtn, "top-left");
